@@ -45,9 +45,6 @@ class Dino(Sprite):
             self.dino_duck = False
             self.dino_jump = False
             
-            self.dino_rect.x = self.X_POS
-            self.dino_rect.y = self.Y_POS
-            
 
     def draw(self, screen):
         screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
@@ -57,15 +54,17 @@ class Dino(Sprite):
             self.image = RUNNING[0]
         else:
             self.image = RUNNING[1]
+        
+        self.dino_rect.x = self.X_POS
+        self.dino_rect.y = self.Y_POS
         self.step_index += 1
         
 
     def duck(self):  
+        self.image = DUCKING[0] if self.step_index < 5 else DUCKING[1]
+        self.dino_rect = self.image.get_rect()
+        self.dino_rect.x = self.X_POS
         self.dino_rect.y = self.Y_POS_DUCK
-        if self.step_index <= 5:
-            self.image = DUCKING[0]
-        else:
-            self.image = DUCKING[1]
         self.step_index += 1
     
     def jump(self):
